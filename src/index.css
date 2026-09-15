@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bone: #FFF9F5;
+  --color-ink: #1A0A0A;
+  --color-mid: #888;
+  --color-brand-red: #D4200E;
+  --color-brand-red-dark: #B01A0A;
+  --color-brand-red-light: #E8432E;
+  --color-brand-yellow: #FFD100;
+  --color-brand-yellow-dark: #E5B800;
+  --color-brand-yellow-light: #FFE04D;
+  --color-warm: #D4200E;
+  --color-warm-dark: #B01A0A;
+  --color-warm-light: #E8432E;
+  --color-cream: #FFFFFF;
+  --color-earth: #1A0A0A;
+  --color-earth-light: #444;
+  --color-spice: #FFD100;
+  --color-spice-light: #FFE04D;
+  
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-accent: 'Space Grotesk', sans-serif;
+}
+
+@layer base {
+  html {
+    overflow-x: clip;
+    scroll-behavior: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Fix iOS overscroll */
+  body {
+    overscroll-behavior: none;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-warm);
+  border-radius: 2px;
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+  /* Larger touch targets */
+  button, a, [role="button"] {
+    min-height: 44px;
+  }
+
+  /* Prevent text size auto-adjust on iOS */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+
+  /* Horizontal scroll for category tabs */
+  .scroll-x-mobile {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scroll-x-mobile::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Reduce parallax intensity on mobile */
+  .fs-parallax {
+    will-change: transform;
+  }
+
+  /* Ensure fixed elements don't overlap */
+  .fixed {
+    touch-action: pan-y;
+  }
+
+  /* Prevent scroll bouncing on iOS */
+  body {
+    overscroll-behavior-y: contain;
+  }
+
+  /* Hide scrollbar on mobile */
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Custom utilities */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-warm) 0%, var(--color-warm-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Video section styles */
+.video-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Menu item hover */
+.menu-card {
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+@media (hover: hover) {
+  .menu-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Editorial layout */
+.editorial-img {
+  transition: transform 1.1s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+@media (hover: hover) {
+  .editorial-img:hover {
+    transform: scale(1.03);
+  }
+}
+
+/* Announcement bar */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.announce-ticker {
+  animation: ticker 30s linear infinite;
+}
+.announce-bar:hover .announce-ticker {
+  animation-play-state: paused;
+}
+
+/* Button hover fill */
+.btn-fill {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-fill span {
+  position: relative;
+  z-index: 2;
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.6, 0, 0.2, 1);
+}
+.btn-fill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.1);
+  z-index: 1;
+  transform: translateY(101%);
+  transition: transform 0.45s cubic-bezier(0.6, 0, 0.2, 1);
+}
+@media (hover: hover) {
+  .btn-fill:hover::before {
+    transform: translateY(0);
+  }
+  .btn-fill:hover span {
+    transform: translateY(-1px);
+  }
+}
+
+/* Reveal animation base */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Cart sidebar */
+.cart-sidebar {
+  transform: translateX(100%);
+  transition: transform 0.5s cubic-bezier(0.6, 0, 0.2, 1);
+}
+.cart-sidebar.open {
+  transform: translateX(0);
+}
+
+
