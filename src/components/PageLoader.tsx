@@ -72,7 +72,7 @@ export default function PageLoader() {
         <div
           className="w-32 h-[2px] bg-white/10 rounded-full overflow-hidden"
           style={{
-            opacity: phase === 'done' ? 0 : 1,
+            opacity: 1,
             transition: 'opacity 0.4s ease',
           }}
         >
